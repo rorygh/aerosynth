@@ -13,4 +13,11 @@
 - Created steam account
 - Created rockstar account
 - Installed rockstar launcher
-- 
+- Cloned the repository https://github.com/David0tt/DeepGTAV
+- Installed Visual Studio 2022 (https://www.junian.dev/tech/visual-studio-community-download-links/)
+  - "Desktop developement with C++" and "Game Developement with C++" selected
+- Installed `git` (`winget install Git.Git`)
+- Followed the "Installation of DeepGTAV" instructions:
+  - Downloaded latest version of ScriptHookV (http://dev-c.com/GTAV/scripthookv) and copied the files from bin/ to DeepGTAV-PreSIL/bin/Release/
+  - Copied the contents of DeepGTAV-PreSIL/bin/Release/ to the GTAV install directory
+  - Replaced the save game data in Documents/Rockstar Games/GTA V/Profiles/ with the contents of DeepGTAV-PreSIL/bin/SaveGame
