@@ -1,0 +1,16 @@
+- Use AirGPU
+  - US West Oregon - 60 ms delay
+  - airgpu-4ffd752226+-
+  - 4ffd752226.my.airgpu.com address
+  - Nvidia L4
+  - ADM EPYC 3.7 GhZ, 8 vCPU, 32 gB ram
+  - 500 gb storage
+  - Win 11
+  - $1.40 per hour
+  - Paid Saphire 5/12
+- Used Moonlight
+- Ctrl+alt+shift+q disconnect
+- Created steam account
+- Created rockstar account
+- Installed rockstar launcher
+- 
