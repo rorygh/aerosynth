@@ -45,4 +45,90 @@ conda create -n DeepGTAV numpy ipykernel opencv matplotlib zeromq
 # Reference GTA Mods
 - See the original DeepGTAV mods: https://github.com/aitorzip/DeepGTAV
 - The old PreSil version: https://github.com/bradenhurl/DeepGTAV-PreSIL
+
+# Running RAFT-Stereo
+## Creating the Pod
+I will later turn this into a dockerfile
+- Created new pod
+  - PyTorch template: runpod/pytorch:2.4.0-py3.11-cuda12.4.1-devel-ubuntu22.04
+  - 60 GB volume storage (non-persistent)
+- It gave me this sample commmand to connect to the pod
+```bash
+ssh root@213.173.105.26 -p 19233 -i ~/.ssh/id_ed25519
+```
+- I replaced my ssh config with the updated runpod info using this bash command:
+```bash
+cat > ~/.ssh/config << 'EOF'
+Host runpod
+    HostName 213.173.105.26
+    User root
+    Port 19233
+    IdentityFile ~/.ssh/id_ed25519
+EOF
+```
+- After running `ssh runpod`, I created and cloned the repository;
+```bash
+cd /workspace && git clone https://github.com/princeton-vl/RAFT-Stereo.git
+```
+- I permenantly enabled vim key bindings for the terminal with this command:
+```bash
+echo "set -o vi" >> ~/.bashrc
+```
+- I then removed the existing git history and origin, and re-initialized git:
+```bash
+cd RAFT-Stereo && rm -rf .git && git init
+```
+- I ensured that the remote repository was correct with:
+```bash
+git remote -v
+```
+- I went to github and created my own private RAFT-Stereo repository at `https://github.com/rorygh/RAFT-Stereo.git`
+- I set the new remote origin:
+```bash
+git remote add origin https://github.com/rorygh/RAFT-Stereo.git
+```
+- I configured my name and email like this
+```bash
+git config --global user.name "Rory M" && git config --global user.email "rory@mcclenagan.net"
+```
+- Before commiting, I went to GitHub → Settings → Developer Settings → Personal Access Tokens → Tokens (classic) and generated a new (classic) token named "runpod" with "repo" scope (I will try using a secret another time)
+- I then used the token to set the remote:
+```bash
+git remote set-url origin https://rorygh:$TOKEN_HERE@github.com/rorygh/RAFT-Stereo.git
+```
+- I did my initial commit like this:
+```bash
+git add . && git commit -m "Initial commit" && git push -u origin master
+```
+- Connected in VSCode via the "Remote-SSH: Connect to Host" command
+- Installed Python Claude Code extension in VSCode on SSH
+- In the remote settings had to add this line
+```
+    "python.useEnvironmentsExtension": true
+```
+- Created a basic requirements file:
+```
+matplotlib
+tensorboard
+scipy
+opencv-python-headless
+tqdm
+opt_einsum
+imageio
+scikit-image
+```
+- Installed with pip
+- Installed unzip to allow for data downloads:
+```
+apt-get update && apt-get install -y unzip
+apt-get install -y p7zip-full
+```
+- Ran both data download scripts
+- Ran the model downlaod script
+- Ran demo:
+```bash
+python demo.py --restore_ckpt models/iraftstereo_rvc.pth --context_norm instance -l=datasets/ETH3D/two_view_testing/*/im0.png -r=datasets/ETH3D/two_view_testing/*/im1.png
+```
+
+- 
 - 
