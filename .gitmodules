@@ -10,3 +10,6 @@
 	path = SynthBlend
 	branch = master
 	url = https://github.com/rorygh/SynthBlend.git
+[submodule "aerosynth-gtav"]
+	path = aerosynth-gtav
+	url = https://github.com/rorygh/aerosynth-gtav.git
