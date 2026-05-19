@@ -1,9 +1,12 @@
 [submodule "SimpleUNet"]
 	path = SimpleUNet
+	branch = master
 	url = https://github.com/rorygh/SimpleUNet.git
 [submodule "RAFT-Stereo"]
 	path = RAFT-Stereo
+	branch = master
 	url = https://github.com/rorygh/RAFT-Stereo.git
 [submodule "SynthBlend"]
 	path = SynthBlend
+	branch = master
 	url = https://github.com/rorygh/SynthBlend.git
