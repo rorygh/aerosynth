@@ -53,7 +53,7 @@ See [SimpleUNet](https://github.com/rorygh/SimpleUNet) for results and training 
 ## Getting started
 Clone the repository and make sure to init submodules:
 ```bash
-git submodule --init --recursive
+git submodule update --init --recursive
 ```
 
 Set up whichever components you need  by running the `setup-env.sh` script. Each component's README has full training, evaluation, and visualisation instructions.
