@@ -38,8 +38,3 @@ conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r
 cd /workspace
 git clone --recurse-submodules https://rorygh:${GH_TOKEN}@github.com/rorygh/aerosynth.git
 
-# -- Optional: download pre-rendered SynthBlend output from Google Drive --
-# FILE_ID="1rQMpLRAnAJLbENeZloxGJGQqMLmCZada"
-# curl -L "https://drive.google.com/uc?export=download&id=${FILE_ID}" -o /tmp/output.zip
-# unzip /tmp/output.zip -d /workspace/aerosynth/SynthBlend/
-# rm /tmp/output.zip
