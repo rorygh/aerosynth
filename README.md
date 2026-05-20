@@ -51,18 +51,9 @@ Sparse voxel UNet trained on coloured point clouds back-projected from stereo de
 See [SimpleUNet](https://github.com/rorygh/SimpleUNet) for results and training instructions.
 
 ## Getting started
-
-Clone the repository and init submodules:
-
+Clone the repository and make sure to init submodules:
 ```bash
-git clone --recurse-submodules https://github.com/rorygh/aerosynth.git
-cd aerosynth
+git submodule --init --recursive
 ```
 
-Run the machine setup script (installs system packages, rclone, and Miniconda), then open a new shell:
-
-```bash
-bash setup-pod.sh
-```
-
-Set up whichever components you need by running their `setup-env.sh`. Each component's README has full training, evaluation, and visualisation instructions.
+Set up whichever components you need  by running the `setup-env.sh` script. Each component's README has full training, evaluation, and visualisation instructions.
