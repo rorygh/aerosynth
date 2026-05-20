@@ -1,29 +1,75 @@
 # aerosynth
 
-Pipeline for synthetic aerial forestry stereo dataset generation, stereo depth estimation, and semantic segmentation.
+Pipeline for synthetic aerial stereo dataset generation, stereo depth estimation, and point cloud semantic segmentation. Two data sources are supported: **SynthBlend** (procedurally rendered in Blender) and **GTA V** (captured with a custom ScriptHookV mod).
 
-## Submodules
+## Sample outputs
 
-| Submodule | Description |
+**SynthBlend** — rendered stereo scene with segmentation ground truth:
+
+Left RGB | Segmentation
+---|---
+![SynthBlend RGB](docs/synthblend_rgb.png) | ![SynthBlend segmentation](docs/synthblend_seg.png)
+
+**RAFT-Stereo** — predicted vs ground-truth disparity on a GTA V frame:
+
+![RAFT-Stereo GTA V inference](docs/raft_inference.png)
+
+**SimpleUNet** — oblique point cloud render, GT vs predicted segmentation:
+
+![SimpleUNet GTA V prediction](docs/unet_pred.png)
+
+## Components
+
+| Component | Description |
 |---|---|
-| [SynthBlend](SynthBlend/) | Synthetic stereo dataset generation using BlenderProc — renders aerial forest scenes with depth, disparity, and category segmentation ground truth |
-| [RAFT-Stereo](RAFT-Stereo/) | RAFT-Stereo fine-tuned on SynthBlend for stereo depth estimation |
-| [SimpleUNet](SimpleUNet/) | UNet trained on SynthBlend for aerial forest semantic segmentation |
+| [SynthBlend](https://github.com/rorygh/SynthBlend) | Procedural stereo scene renderer — BlenderProc + fBm terrain + Poisson-disk tree placement. Outputs stereo RGB, depth, disparity, and category segmentation. |
+| [aerosynth-gtav](https://github.com/rorygh/aerosynth-gtav) | GTA V ScriptHookV mod that captures aerial stereo imagery with depth (DirectX depth buffer) and segmentation (stencil buffer) ground truth. |
+| [RAFT-Stereo](https://github.com/rorygh/RAFT-Stereo) | RAFT-Stereo fine-tuned on SynthBlend and GTA V data for stereo disparity estimation. |
+| [SimpleUNet](https://github.com/rorygh/SimpleUNet) | Sparse voxel UNet trained on coloured point clouds back-projected from stereo depth. Segments terrain, foliage, and man-made structures. |
 
-## Pod setup
+## Getting started on a fresh pod
 
-Run once on a new pod (before cloning):
+**1. Machine setup** — download and run the bootstrap script before cloning:
 
 ```bash
-GH_TOKEN=<your_token> bash setup-pod.sh
+curl -fsSL https://raw.githubusercontent.com/rorygh/aerosynth/master/setup-pod.sh | bash
 ```
 
-Sets up git identity, installs system packages (unzip, rclone), installs Miniconda, and clones this repo with all submodules into `/workspace/aerosynth`.
+Installs system packages, rclone, and Miniconda. Configures git identity and credential caching (you will be prompted for your GitHub credentials on the first clone).
+
+**2. Clone the repo with all submodules:**
+
+```bash
+git clone --recurse-submodules https://github.com/rorygh/aerosynth.git /workspace/aerosynth
+```
+
+**3. Set up whichever components you need** — each has its own `setup-env.sh`:
+
+```bash
+# Data generation (SynthBlend)
+cd /workspace/aerosynth/SynthBlend && bash setup-env.sh
+
+# Stereo depth (RAFT-Stereo)
+cd /workspace/aerosynth/RAFT-Stereo && bash setup-env.sh
+
+# Point cloud segmentation (SimpleUNet)
+cd /workspace/aerosynth/SimpleUNet && bash setup-env.sh
+
+# GTA V data conversion (aerosynth-gtav)
+cd /workspace/aerosynth/aerosynth-gtav && bash setup-env.sh
+```
+
+Each component's README has full training and evaluation instructions.
 
 ## Workflow
 
-1. **Generate data** — run `SynthBlend` to render stereo scenes
-2. **Train stereo model** — fine-tune `RAFT-Stereo` on the rendered output
-3. **Train segmentation model** — train `SimpleUNet` on the rendered output
+```
+SynthBlend / aerosynth-gtav
+        │  stereo RGB + depth + segmentation ground truth
+        ▼
+   RAFT-Stereo  ──  fine-tune on stereo pairs, predict disparity
+        │
+   SimpleUNet   ──  back-project RGB+depth → 3D point cloud → segment
+```
 
-Each submodule has its own `setup-env.sh` and README with per-component instructions.
+Both RAFT-Stereo and SimpleUNet are trained independently on either dataset. SimpleUNet uses ground-truth depth from the dataset directly (not RAFT output) during training.
