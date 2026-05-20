@@ -12,7 +12,7 @@ Procedural renderer using BlenderProc — fBm terrain, Poisson-disk tree placeme
 
 Left RGB | Segmentation (terrain · foliage · trunk)
 ---|---
-![SynthBlend RGB](docs/synthblend_rgb.png) | ![SynthBlend segmentation](docs/synthblend_seg.png)
+<img src="docs/synthblend_rgb.png" width="360"> | <img src="docs/synthblend_seg.png" width="360">
 
 ### GTA V
 
@@ -20,11 +20,11 @@ ScriptHookV ASI mod that positions a scripted aerial camera and captures the Dir
 
 Left RGB | Segmentation (terrain · foliage · artificial · vehicle · person · sky)
 ---|---
-![GTA V RGB](docs/gtav_rgb.png) | ![GTA V segmentation](docs/gtav_seg.png)
+<img src="docs/gtav_rgb.png" width="360"> | <img src="docs/gtav_seg.png" width="360">
 
 ## Stereo depth — RAFT-Stereo
 
-RAFT-Stereo fine-tuned independently on each dataset. Each row shows left RGB, predicted disparity, and ground-truth disparity on a held-out frame.
+RAFT-Stereo fine-tuned independently on each dataset. We show left RGB, right RGB, predicted disparity, and ground-truth disparity on a held-out frame.
 
 **SynthBlend:**
 
@@ -44,7 +44,7 @@ Sparse voxel UNet trained on coloured point clouds back-projected from stereo de
 
 ![SimpleUNet SynthBlend prediction](docs/unet_synthblend_pred.png)
 
-**GTA V** — oblique point cloud render, GT vs predicted (terrain · foliage · artificial · sky):
+**GTA V** — oblique point cloud render, GT vs predicted (terrain · foliage · artificial):
 
 ![SimpleUNet GTA V prediction](docs/unet_pred.png)
 
