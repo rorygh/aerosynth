@@ -18,7 +18,7 @@ Left RGB | Segmentation (terrain · foliage · trunk)
 
 ScriptHookV ASI mod that positions a scripted aerial camera and captures the DirectX depth buffer and stencil-based segmentation. **Built and run on Windows** — see [aerosynth-gtav](https://github.com/rorygh/aerosynth-gtav) for build and install instructions. A `convert.py` script normalises captures to the shared training format.
 
-Left RGB | Segmentation (terrain · foliage · artificial · vehicle · person · sky)
+Left RGB | Segmentation (terrain · foliage · artificial)
 ---|---
 <img src="docs/gtav_rgb.png" width="360"> | <img src="docs/gtav_seg.png" width="360">
 
@@ -50,51 +50,19 @@ Sparse voxel UNet trained on coloured point clouds back-projected from stereo de
 
 See [SimpleUNet](https://github.com/rorygh/SimpleUNet) for results and training instructions.
 
-## Getting started on a fresh pod
+## Getting started
 
-**1.** Navigate to the workspace directory:
-
-```bash
-cd /workspace
-```
-
-**2.** If the repo is private, configure git to cache credentials so you are only prompted once:
-
-```bash
-git config --global credential.helper store
-```
-
-Then when you clone, git will prompt for your GitHub username and a personal access token, and cache them for all future operations.
-
-**3.** Clone the repo with all submodules:
+Clone the repository and init submodules:
 
 ```bash
 git clone --recurse-submodules https://github.com/rorygh/aerosynth.git
 cd aerosynth
 ```
 
-**4.** Run the machine setup script (installs system packages, rclone, and Miniconda):
+Run the machine setup script (installs system packages, rclone, and Miniconda), then open a new shell:
 
 ```bash
 bash setup-pod.sh
 ```
 
-Then open a new shell (or `source ~/.bashrc`) for conda to be available.
-
-**5.** Set up whichever components you need — each has its own `setup-env.sh`:
-
-```bash
-# Synthetic data generation
-cd /workspace/aerosynth/SynthBlend && bash setup-env.sh
-
-# Stereo depth estimation
-cd /workspace/aerosynth/RAFT-Stereo && bash setup-env.sh
-
-# Point cloud segmentation
-cd /workspace/aerosynth/SimpleUNet && bash setup-env.sh
-
-# GTA V data conversion only (mod itself is built on Windows)
-cd /workspace/aerosynth/aerosynth-gtav && bash setup-env.sh
-```
-
-Each component's README has full training, evaluation, and visualisation instructions.
+Set up whichever components you need by running their `setup-env.sh`. Each component's README has full training, evaluation, and visualisation instructions.

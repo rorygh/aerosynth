@@ -5,14 +5,7 @@ set -euo pipefail
 # Run this before cloning the repo.
 
 # Vim key bindings
-echo "set -o vi" >> ~/.bashrc
-
-# Git identity
-git config --global user.name "Rory M"
-git config --global user.email "rory@mcclenagan.net"
-
-# Cache credentials on first use
-git config --global credential.helper store
+# echo "set -o vi" >> ~/.bashrc
 
 # System packages
 apt-get update && apt-get install -y unzip p7zip-full
