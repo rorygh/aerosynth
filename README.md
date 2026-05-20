@@ -23,7 +23,7 @@ Left RGB | Segmentation
 | Component | Description |
 |---|---|
 | [SynthBlend](https://github.com/rorygh/SynthBlend) | Procedural stereo scene renderer — BlenderProc + fBm terrain + Poisson-disk tree placement. Outputs stereo RGB, depth, disparity, and category segmentation. |
-| [aerosynth-gtav](https://github.com/rorygh/aerosynth-gtav) | GTA V ScriptHookV mod that captures aerial stereo imagery with depth (DirectX depth buffer) and segmentation (stencil buffer) ground truth. |
+| [aerosynth-gtav](https://github.com/rorygh/aerosynth-gtav) | GTA V ScriptHookV mod that captures aerial stereo imagery with depth (DirectX depth buffer) and segmentation (stencil buffer) ground truth. **Built and run on Windows** — see that repo's README for the MSVC build and install instructions. The Linux `setup-env.sh` is only needed for running `convert.py` to normalise captures for training. |
 | [RAFT-Stereo](https://github.com/rorygh/RAFT-Stereo) | RAFT-Stereo fine-tuned on SynthBlend and GTA V data for stereo disparity estimation. |
 | [SimpleUNet](https://github.com/rorygh/SimpleUNet) | Sparse voxel UNet trained on coloured point clouds back-projected from stereo depth. Segments terrain, foliage, and man-made structures. |
 
@@ -55,7 +55,7 @@ cd /workspace/aerosynth/RAFT-Stereo && bash setup-env.sh
 # Point cloud segmentation (SimpleUNet)
 cd /workspace/aerosynth/SimpleUNet && bash setup-env.sh
 
-# GTA V data conversion (aerosynth-gtav)
+# GTA V data conversion only (the mod itself is built on Windows — see aerosynth-gtav README)
 cd /workspace/aerosynth/aerosynth-gtav && bash setup-env.sh
 ```
 
